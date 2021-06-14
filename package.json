@@ -2,6 +2,7 @@
   "name": "destiny-bot",
   "version": "0.0.1",
   "description": "Discord bot for Destiny clans",
+  "repository": "github:tjswierzewski/destiny-bot-CS",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
