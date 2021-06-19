@@ -1,7 +1,10 @@
-const Discord = require('discord.js');
+import { APIMessage, Client, MessageEmbed } from 'discord.js';
+import { helloWorld } from './helpers/helloworld';
 
 const CSId = '831880241310990357';
-const client = new Discord.Client();
+const client = new Client();
+
+console.log(helloWorld());
 
 const getApp = (guildId) => {
   const app = client.api.applications(client.user.id);
@@ -18,7 +21,6 @@ client.once('ready', async () => {
       description: 'Hello World',
     },
   });
-
   await getApp(CSId).commands.post({
     data: {
       name: 'embed',
@@ -42,7 +44,7 @@ client.once('ready', async () => {
 });
 
 const createAPIMessage = async (interaction, content) => {
-  const { data, files } = await Discord.APIMessage.create(
+  const { data, files } = await APIMessage.create(
     client.channels.resolve(interaction.channel_id),
     content
   )
@@ -80,7 +82,7 @@ client.ws.on('INTERACTION_CREATE', async (interaction) => {
 
     case 'embed':
       {
-        const embed = new Discord.MessageEmbed().setTitle('Test');
+        const embed = new MessageEmbed().setTitle('Test');
         options.forEach(({ name, value }) => {
           embed.addField(name, value);
         });
