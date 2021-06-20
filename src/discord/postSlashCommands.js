@@ -34,6 +34,26 @@ const postSlashCommands = (client, CSId) => {
         ],
       },
     });
+    await getApp(CSId).commands.post({
+      data: {
+        name: 'postvideo',
+        description: 'Add Guide Video',
+        options: [
+          {
+            name: 'title',
+            description: 'Title of guide',
+            required: true,
+            type: 3,
+          },
+          {
+            name: 'url',
+            description: 'Video url',
+            required: true,
+            type: 3,
+          },
+        ],
+      },
+    });
   });
 };
 
