@@ -31,7 +31,7 @@ const resolveSlashCommands = (client) => {
           const video = new Video(payload);
           video.save((err, video) => {
             if (err) {
-              console.error(err);
+              reply(client, interaction, err);
             }
             reply(client, interaction, `${video.title} has been added`);
           });
