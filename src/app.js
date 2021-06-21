@@ -1,10 +1,23 @@
-import { Client } from 'discord.js';
-import postSlashCommands from './discord/postSlashCommands';
-import resolveSlashCommands from './discord/resolveSlashCommands';
+import { connect, connection } from 'mongoose';
+import runBot from './discord/runBot';
 
-const CSId = '831880241310990357';
-const client = new Client();
+const startMongoDB = async () => {
+  try {
+    await connect('mongodb://localhost:27017/destiny-bot', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-postSlashCommands(client, CSId);
-resolveSlashCommands(client);
-client.login(process.env.BOT_TOKEN);
+const db = connection;
+db.on('error', (err) => {
+  console.log(err);
+});
+db.once('open', () => {
+  runBot();
+});
+
+startMongoDB();
