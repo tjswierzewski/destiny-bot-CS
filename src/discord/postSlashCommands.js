@@ -54,6 +54,12 @@ const postSlashCommands = (client, CSId) => {
         ],
       },
     });
+    await getApp(CSId).commands.post({
+      data: {
+        name: 'getvideos',
+        description: 'Show all videos',
+      },
+    });
   });
 };
 

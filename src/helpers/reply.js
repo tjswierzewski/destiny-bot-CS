@@ -1,6 +1,6 @@
-import { createAPIMessage } from './createAPIMessage';
+import createAPIMessage from './createAPIMessage';
 
-export const reply = async (client, interaction, response) => {
+const reply = async (client, interaction, response) => {
   let data = {
     content: response,
   };
@@ -15,3 +15,5 @@ export const reply = async (client, interaction, response) => {
     },
   });
 };
+
+export default reply;
