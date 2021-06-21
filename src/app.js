@@ -3,7 +3,7 @@ import runBot from './discord/runBot';
 
 const startMongoDB = async () => {
   try {
-    await connect('mongodb://localhost:27017/destiny-bot', {
+    await connect(process.env.MONGO_URL || 'mongodb://localhost:27017/destiny-bot', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
