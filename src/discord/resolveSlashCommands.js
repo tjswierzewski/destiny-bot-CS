@@ -1,8 +1,14 @@
 import { MessageEmbed } from 'discord.js';
+import _ from 'lodash';
 import discordPayloadConverter from '../helpers/discordPayloadConverter';
 import reply from '../helpers/reply';
 import Video from '../models/video';
 import getVideos from './commands/getVideos';
+
+const keyMapping = {
+  title: 'title',
+  url: 'videoId',
+};
 
 const resolveSlashCommands = (client) => {
   client.ws.on('INTERACTION_CREATE', async (interaction) => {
@@ -28,13 +34,16 @@ const resolveSlashCommands = (client) => {
 
       case 'postvideo':
         {
-          const payload = discordPayloadConverter(options);
+          let payload = discordPayloadConverter(options);
+          payload = _(payload)
+            .mapKeys((__, k) => keyMapping[k])
+            .value();
           const video = new Video(payload);
-          video.save((err, video) => {
+          video.save((err, model) => {
             if (err) {
               reply(client, interaction, err);
             }
-            reply(client, interaction, `${video.title} has been added`);
+            reply(client, interaction, `${model.title} has been added`);
           });
         }
         break;

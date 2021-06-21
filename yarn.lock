@@ -2246,6 +2246,7 @@ __metadata:
     eslint-plugin-import: ^2.23.4
     eslint-plugin-node: ^11.1.0
     eslint-plugin-promise: ^5.1.0
+    lodash: ^4.17.21
     mongoose: ^5.12.14
   languageName: unknown
   linkType: soft
@@ -3664,6 +3665,13 @@ fsevents@~2.3.2:
   version: 4.4.2
   resolution: "lodash.truncate@npm:4.4.2"
   checksum: b1b0d7d993bb73d0032fe909d4523a836b6aa91566fa88ff78c3eac008bd3d3b2ba0f2e8381d7f906b1d6913a64982f34bea95dd556355c0d418bfddf3ab7b06
+  languageName: node
+  linkType: hard
+
+"lodash@npm:^4.17.21":
+  version: 4.17.21
+  resolution: "lodash@npm:4.17.21"
+  checksum: 4983720b9abca930a4a46f18db163d7dad8dd00dbed6db0cc7b499b33b717cce69f80928b27bbb1ff2cbd3b19d251ee90669a8b5ea466072ca81c2ebe91e7468
   languageName: node
   linkType: hard
 
