@@ -1,7 +1,8 @@
 import { MessageEmbed } from 'discord.js';
 import discordPayloadConverter from '../helpers/discordPayloadConverter';
-import { reply } from '../helpers/reply';
+import reply from '../helpers/reply';
 import Video from '../models/video';
+import getVideos from './commands/getVideos';
 
 const resolveSlashCommands = (client) => {
   client.ws.on('INTERACTION_CREATE', async (interaction) => {
@@ -36,6 +37,9 @@ const resolveSlashCommands = (client) => {
             reply(client, interaction, `${video.title} has been added`);
           });
         }
+        break;
+      case 'getvideos':
+        getVideos(client, interaction);
         break;
       default:
         break;
