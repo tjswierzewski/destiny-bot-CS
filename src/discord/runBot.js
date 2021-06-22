@@ -1,4 +1,5 @@
 import WebSocket from 'ws';
+import { printIncoming, printOutgoing } from './helpers/print';
 
 const CSId = '831880241310990357';
 let sequenceNumber = null;
@@ -36,19 +37,6 @@ const identify = JSON.stringify({
   },
 });
 
-const restartBot = (client) => {
-  client.terminate();
-  runBot();
-};
-
-const printOutgoing = (message) => {
-  console.log('\x1b[33m%s\x1b[0m', message);
-};
-
-const printIncoming = (message) => {
-  console.log('\x1b[35m%s\x1b[0m', message);
-};
-
 const sendHeartbeat = (client, status) => {
   if (!status) {
     client.terminate();
@@ -57,6 +45,11 @@ const sendHeartbeat = (client, status) => {
   client.send(heartbeat);
   printOutgoing(heartbeat);
   alive = false;
+};
+
+const restartBot = (client) => {
+  client.terminate();
+  runBot();
 };
 
 const runBot = () => {
@@ -71,9 +64,37 @@ const runBot = () => {
     printIncoming(data);
     sequenceNumber = data.s;
     switch (data.op) {
-      case 1:
-        sendHeartbeat(discord);
+      case 0:
+        switch (data.t) {
+          case 'READY':
+            sessionId = data.session_id;
+            break;
+
+          case 'MESSAGE_CREATE':
+            break;
+
+          case 'INTERACTION_CREATE':
+            break;
+
+          default:
+            break;
+        }
         break;
+      case 1:
+        sendHeartbeat(discord, alive);
+        break;
+
+      case 7:
+        restartBot(discord);
+        break;
+
+      case 9:
+        if (!data.d) {
+          sessionId = null;
+        }
+        restartBot(discord);
+        break;
+
       case 10:
         alive = true;
         sessionId = data.d.session_id;
@@ -83,25 +104,12 @@ const runBot = () => {
         }
         discord.send(identify);
         break;
+
       case 11:
         alive = true;
         break;
-      case 9:
-        if (!data.d) {
-          sessionId = null;
-        }
-        restartBot();
-        break;
 
       default:
-        switch (data.t) {
-          case 'READY':
-            sessionId = data.session_id;
-            break;
-
-          default:
-            break;
-        }
         break;
     }
   });
