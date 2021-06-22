@@ -28,9 +28,14 @@
     "dotenv": "^10.0.0",
     "lodash": "^4.17.21",
     "mongoose": "^5.12.14",
-    "mongoose-data-seed": "^2.1.6"
+    "mongoose-data-seed": "^2.1.6",
+    "ws": "^7.5.0"
   },
   "mdSeed": {
     "seedersFolder": "./seeders"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^4.0.3",
+    "utf-8-validate": "^5.0.5"
   }
 }
