@@ -1,7 +1,7 @@
 import WebSocket from 'ws';
+import handleInteraction from './helpers/handleInteraction';
 import { printIncoming, printOutgoing } from './helpers/print';
 
-const CSId = '831880241310990357';
 let sequenceNumber = null;
 let alive = false;
 let sessionId = null;
@@ -74,6 +74,7 @@ const runBot = () => {
             break;
 
           case 'INTERACTION_CREATE':
+            handleInteraction(data.d);
             break;
 
           default:
