@@ -1,5 +1,7 @@
 import WebSocket from 'ws';
+import commandList from './commands/commandList';
 import handleInteraction from './helpers/handleInteraction';
+import postSlashCommand from './helpers/postSlashCommands';
 import { printIncoming, printOutgoing } from './helpers/print';
 
 let sequenceNumber = null;
@@ -57,6 +59,9 @@ const runBot = () => {
 
   discord.on('open', () => {
     printOutgoing('connection');
+    commandList.forEach((command) => {
+      postSlashCommand(command);
+    });
   });
 
   discord.on('message', (message) => {
