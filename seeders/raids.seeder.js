@@ -12,6 +12,7 @@ const data = [
       { name: 'Riven of a Thousand Voices' },
       { name: 'The Heart of Riven' },
     ],
+    emoji: '🇱',
   },
   {
     title: 'Garden of Salvation',
@@ -21,6 +22,7 @@ const data = [
       { name: 'Defeat the Consecrated Mind' },
       { name: 'Defeat the Sanctified Mind' },
     ],
+    emoji: '🇬',
   },
   {
     title: 'Deep Stone Crypt',
@@ -32,6 +34,7 @@ const data = [
       { name: 'Taniks, Reborn' },
       { name: 'Taniks, the Abomination' },
     ],
+    emoji: '🇩',
   },
   {
     title: 'Vault of Glass',
@@ -44,6 +47,7 @@ const data = [
       { name: 'The Gatekeeper' },
       { name: "Atheon, Time's Conflux" },
     ],
+    emoji: '🇻',
   },
 ];
 

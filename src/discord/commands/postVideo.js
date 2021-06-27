@@ -7,12 +7,15 @@ const postVideo = async (url) => {
   const raidsEmbed = new Embed();
   raidsEmbed.title = 'Choose a Raid';
   const raids = await Raid.find({});
+  let description = '';
   raids.forEach((raid) => {
-    raidsEmbed.addField('👏', raid.title);
+    description += `${raid.title}: ${raid.emoji}\n\n`;
   });
+  raidsEmbed.description = description;
   const message = new Message();
   message.addEmbed(raidsEmbed);
   new InteractionResponse(url, message.apiMessage()).post();
+  //add emojis
 };
 
 export default postVideo;

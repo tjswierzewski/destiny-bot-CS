@@ -6,6 +6,7 @@ const raidSchema = new Schema(
   {
     title: String,
     encounters: [encounterSchema],
+    emoji: String,
   },
   { timestamps: { createdAt: 'created_at' } },
 );

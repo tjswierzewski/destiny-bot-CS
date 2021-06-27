@@ -8,7 +8,7 @@ class InteractionResponse {
   }
 
   post() {
-    postResponse(this.url, { type: this.type, data: this.data });
+    return postResponse(this.url, { type: this.type, data: this.data });
   }
 }
 
