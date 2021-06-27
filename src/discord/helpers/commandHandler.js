@@ -11,7 +11,7 @@ const commandHandler = (command, url, data) => {
       return embed(url, data);
 
     case 'postvideo':
-      postVideo();
+      postVideo(url);
       return null;
 
     default:
