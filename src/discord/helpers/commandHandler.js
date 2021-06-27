@@ -5,17 +5,17 @@ import postVideo from '../commands/postVideo';
 const commandHandler = (command, url, data) => {
   switch (command.name) {
     case 'ping':
-      return ping(url);
-
+      ping(url);
+      break;
     case 'embed':
-      return embed(url, data);
-
+      embed(url, data);
+      break;
     case 'postvideo':
       postVideo(url);
-      return null;
+      break;
 
     default:
-      return null;
+      break;
   }
 };
 
