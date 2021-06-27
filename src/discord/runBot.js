@@ -1,4 +1,5 @@
 import WebSocket from 'ws';
+import messageEmitter from '../events/messageEmitter';
 import commandList from './commands/commandList';
 import handleInteraction from './helpers/handleInteraction';
 import postSlashCommand from './helpers/postSlashCommands';
@@ -76,6 +77,9 @@ const runBot = () => {
             break;
 
           case 'MESSAGE_CREATE':
+            if (data.d.author.bot) {
+              messageEmitter.emit('botCreate', data.d);
+            }
             break;
 
           case 'INTERACTION_CREATE':

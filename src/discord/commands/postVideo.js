@@ -1,7 +1,9 @@
+import messageEmitter from '../../events/messageEmitter';
 import Embed from '../../lib/Embed';
 import InteractionResponse from '../../lib/InteractionResponse';
 import Message from '../../lib/Message';
 import Raid from '../../models/raid';
+import addReaction from '../helpers/addReaction';
 
 const postVideo = async (url) => {
   const raidsEmbed = new Embed();
@@ -15,7 +17,13 @@ const postVideo = async (url) => {
   const message = new Message();
   message.addEmbed(raidsEmbed);
   new InteractionResponse(url, message.apiMessage()).post();
-  //add emojis
+  messageEmitter.on('botCreate', (message) => {
+    raids.forEach((raid, index) => {
+      setTimeout(() => {
+        addReaction(raid.encodedEmoji, message);
+      }, index * 300);
+    });
+  });
 };
 
 export default postVideo;
