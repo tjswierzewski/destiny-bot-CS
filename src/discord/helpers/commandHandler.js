@@ -1,14 +1,13 @@
-import InteractionResponse from '../../lib/InteractionResponse';
-import discordPayloadConverter from './discordPayloadConverter';
+import embed from '../commands/embed';
+import ping from '../commands/ping';
 
 const commandHandler = (data) => {
   switch (data.name) {
     case 'ping':
-      return new InteractionResponse({ content: 'hello world' });
+      return ping();
 
     case 'embed':
-      const { user, age } = discordPayloadConverter(data.options);
-      return new InteractionResponse({ embeds: [{ title: age, author: { name: user } }] });
+      return embed(data);
 
     default:
       return null;
