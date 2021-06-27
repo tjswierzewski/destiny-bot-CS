@@ -32,15 +32,29 @@ class Message {
     this.components = null;
   }
 
+  addEmbed(embed) {
+    if (this.embeds === null) {
+      this.embeds = [];
+    }
+    this.embeds.push(embed);
+  }
+
   apiMessage() {
-    return {
-      content: this.content,
+    let message = {
       tts: this.tts,
-      file: this.file,
-      embeds: this.embeds,
       message_reference: this.message_reference,
       components: this.components,
     };
+    if (this.embeds) {
+      message = { ...message, embeds: this.embeds };
+    }
+    if (this.content) {
+      message = { ...message, content: this.content };
+    }
+    if (this.file) {
+      message = { ...message, file: this.file };
+    }
+    return message;
   }
 }
 

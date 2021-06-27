@@ -2,13 +2,13 @@ import embed from '../commands/embed';
 import ping from '../commands/ping';
 import postVideo from '../commands/postVideo';
 
-const commandHandler = (data) => {
-  switch (data.name) {
+const commandHandler = (command, url, data) => {
+  switch (command.name) {
     case 'ping':
-      return ping();
+      return ping(url);
 
     case 'embed':
-      return embed(data);
+      return embed(url, data);
 
     case 'postvideo':
       postVideo();
