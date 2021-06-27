@@ -1,9 +1,7 @@
-import commandHandler from './commandHandler';
-import postResponse from './postResponse';
+import Interaction from '../../lib/Interaction';
 
-const handleInteraction = async ({ id, token, data }) => {
-  const payload = commandHandler(data);
-  const url = `https://discord.com/api/v9/interactions/${id}/${token}/callback`;
-  postResponse(url, payload);
+const handleInteraction = async (interactionPayload) => {
+  const interaction = new Interaction(interactionPayload);
+  interaction.respond();
 };
 export default handleInteraction;

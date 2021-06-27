@@ -1,13 +1,18 @@
-import discordPayloadConverter from './discordPayloadConverter';
+import embed from '../commands/embed';
+import ping from '../commands/ping';
+import postVideo from '../commands/postVideo';
 
-const commandHandler = (data) => {
-  switch (data.name) {
+const commandHandler = (command, url, data) => {
+  switch (command.name) {
     case 'ping':
-      return { type: 4, data: { content: 'hello world' } };
+      return ping(url);
 
     case 'embed':
-      const { user, age } = discordPayloadConverter(data.options);
-      return { type: 4, data: { embeds: [{ title: age, author: { name: user } }] } };
+      return embed(url, data);
+
+    case 'postvideo':
+      postVideo();
+      return null;
 
     default:
       return null;
