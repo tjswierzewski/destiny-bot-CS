@@ -1,5 +1,6 @@
 import WebSocket from 'ws';
 import messageEmitter from '../events/messageEmitter';
+import reactionEmitter from '../events/reactionEmitter';
 import commandList from './commands/commandList';
 import handleInteraction from './helpers/handleInteraction';
 import postSlashCommand from './helpers/postSlashCommands';
@@ -8,6 +9,7 @@ import { printIncoming, printOutgoing } from './helpers/print';
 let sequenceNumber = null;
 let alive = false;
 let sessionId = null;
+let userId = null;
 const resume = JSON.stringify({
   op: 6,
   d: {
@@ -75,7 +77,8 @@ const runBot = () => {
       case 0:
         switch (data.t) {
           case 'READY':
-            sessionId = data.session_id;
+            sessionId = data.d.session_id;
+            userId = data.d.user.id;
             break;
 
           case 'MESSAGE_CREATE':
@@ -86,6 +89,12 @@ const runBot = () => {
 
           case 'INTERACTION_CREATE':
             handleInteraction(data.d);
+            break;
+
+          case 'MESSAGE_REACTION_ADD':
+            if (data.d.user_id !== userId) {
+              reactionEmitter.emit('userReaction', data.d);
+            }
             break;
 
           default:

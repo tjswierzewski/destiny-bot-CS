@@ -1,11 +1,15 @@
 import messageEmitter from '../../events/messageEmitter';
+import reactionEmitter from '../../events/reactionEmitter';
 import Embed from '../../lib/Embed';
 import InteractionResponse from '../../lib/InteractionResponse';
 import Message from '../../lib/Message';
 import Raid from '../../models/raid';
 import addReaction from '../helpers/addReaction';
+import deleteReaction from '../helpers/deleteReaction';
+import { printIncoming } from '../helpers/print';
 
 const postVideo = async (url) => {
+  let raidObject = {};
   const raidsEmbed = new Embed();
   raidsEmbed.title = 'Choose a Raid';
   const raids = await Raid.find({});
@@ -23,6 +27,12 @@ const postVideo = async (url) => {
         addReaction(raid.encodedEmoji, message);
       }, index * 300);
     });
+  });
+  reactionEmitter.on('userReaction', (reaction) => {
+    const selectedRaid = raids.find((raid) => raid.emoji === reaction.emoji.name);
+    raidObject = { ...raidObject, raid: selectedRaid.title };
+    deleteReaction(selectedRaid.encodedEmoji, reaction);
+    printIncoming(raidObject);
   });
 };
 
