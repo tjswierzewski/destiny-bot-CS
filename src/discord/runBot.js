@@ -20,7 +20,7 @@ const identify = JSON.stringify({
   op: 2,
   d: {
     token: process.env.BOT_TOKEN,
-    intents: 513,
+    intents: 1593,
     properties: {
       $os: 'OSX',
       $browser: 'Ishtar',
@@ -60,8 +60,10 @@ const runBot = () => {
 
   discord.on('open', () => {
     printOutgoing('connection');
-    commandList.forEach((command) => {
-      postSlashCommand(command);
+    commandList.forEach((command, index) => {
+      setTimeout(() => {
+        postSlashCommand(command);
+      }, index * 300);
     });
   });
 
